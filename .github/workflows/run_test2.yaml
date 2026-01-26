@@ -4,6 +4,10 @@ name: test2
 # 触发条件：1. 每5分钟运行一次 2. 支持手动触发（方便测试）
 on: workflow_dispatch 
 
+# 授予GITHUB_TOKEN写入仓库的权限
+permissions:
+  contents: write  # 核心：允许推送代码到仓库
+
 # 要执行的任务集合
 jobs: 
   write_logfile: 
