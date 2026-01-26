@@ -1,4 +1,4 @@
-# test.py - 简单的联网测试脚本
+# test1.py - 简单的联网测试脚本
 import requests
 from datetime import datetime
 
