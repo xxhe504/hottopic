@@ -34,4 +34,8 @@ jobs:
 
       # 步骤4：运行Python脚本
       - name: 执行脚本
-        run: python test.py  # 运行我们上传的test.py
+        run: python test1.py  # 运行我们上传的test.py
+
+
+
+        
