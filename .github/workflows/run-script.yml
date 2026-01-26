@@ -9,7 +9,7 @@ on:
   workflow_dispatch:  # 手动触发开关
 
 # 要执行的任务集合
-jobs:
+jobs: 打印到屏幕
   # 任务名称（自定义）
   run-python-script:
     # 运行环境：选择Ubuntu系统（免费、轻量）
