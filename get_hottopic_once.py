@@ -81,19 +81,20 @@ def write_topic_list(save_dir:str, filename_prefix:str='wb_hottopic', debug:bool
         logger.debug(topics)
     if not topics:
         return 
-    if not pathlib.Path(save_dir).exists():
-        pathlib.Path(save_dir).mkdir(parents=True, exist_ok=True)
+    save_dir = pathlib.Path(save_dir)
+    if not save_dir.exists():
+        save_dir.mkdir(parents=True, exist_ok=True)
     # 合并csv文件
     今天日期 = (datetime.date.today() + datetime.timedelta()).strftime('%Y%m%d') 
-    tsv文件名 = f'{save_dir}/{filename_prefix}_{今天日期}.tsv'
-    if pathlib.Path(tsv文件名).exists():
-        old_df = pd.read_csv(tsv文件名, sep='\t', header=0, dtype={'在榜日期':str,}).fillna('')
+    tsv文件名 = save_dir / f'{filename_prefix}_{今天日期}.tsv'
+    if tsv文件名.exists():
+        old_df = pd.read_csv(str(tsv文件名), sep='\t', header=0, dtype={'在榜日期':str,}).fillna('')
         logger.info(f'读文件`{tsv文件名}`, 共有{old_df.shape[0]}个话题')
         new_df = pd.concat([old_df, df], ignore_index=True).drop_duplicates(subset=['话题','icon_desc']).reset_index(drop=True)
     else:
         new_df = df.copy()
     logger.info(f'写文件`{tsv文件名}`, 共有{new_df.shape[0]}个话题')
-    new_df.to_csv(tsv文件名, header=True, index=False, sep='\t')
+    new_df.to_csv(str(tsv文件名), header=True, index=False, sep='\t')
     return 0
 
 
@@ -103,4 +104,7 @@ if __name__ == '__main__':
 
 
 #!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  get_hottopic_once.ipynb
+
+
+
 
