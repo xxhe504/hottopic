@@ -5,12 +5,16 @@ name: wb_hottopic
 permissions:
   contents: write  # 核心：允许推送代码到仓库
 
+# 全局设置东八区时区
+env:
+  TZ: Asia/Shanghai
+
 # 触发条件：1. 每5分钟运行一次 2. 支持手动触发（方便测试）
 on: workflow_dispatch 
 
 # 要执行的任务集合
 jobs: 
-  write_logfile: 
+  wb_hottopic: 
     runs-on: ubuntu-latest
     steps:
       # 步骤1：拉取仓库代码（带完整历史，方便提交）
