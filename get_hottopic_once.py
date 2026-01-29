@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# # get_hottopic_once
+# 使用公开接口，抓取一次微博热搜榜  
+
+import json
+import requests
+import pandas as pd
+import traceback
+from copy import deepcopy
+from loguru import logger
+
+
+import pathlib
+if '__file__' in locals():
+    # .py代码
+    ROOTDIR = pathlib.Path(__file__).absolute().parent 
+    logger.remove()
+    logger.add(f"{ROOTDIR}/log/get_hottopic_once.py.log", rotation="00:00", retention="30 days")  # 一段时间后进行清理 
+else:
+    # 适合jupyter中
+    ROOTDIR = pathlib.Path.cwd() 
+import datetime 
+今天日期 = (datetime.date.today() + datetime.timedelta()).strftime('%Y%m%d') 
+
+
+#-----------------------------------------------------------------
+def get_topics(debug:bool=False) -> list:
+    '''提取热搜话题列表。获取失败返回空列表。
+    '''
+    topics = []
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+        "Referer": "https://weibo.com/hot/search"
+    }
+    url = 'https://weibo.com/ajax/side/hotSearch'
+    # flag字段的含义 {'0': '无标记', '1': '新', '2': '热', '4': '爆', '16': '沸', '32': '正在上升', '32768': '暖'}
+    # 文娱
+    #url = 'https://weibo.com/ajax/statuses/entertainment'
+    # 我的
+    #url = 'ttps://weibo.com/ajax/statuses/mineBand'
+    # 要闻 
+    #url = 'https://weibo.com/ajax/statuses/news'
+    try:
+        response = requests.get(url,headers=headers).json()
+        在榜日期 = datetime.datetime.now().strftime('%Y%m%d') 
+        在榜时间 = datetime.datetime.now().strftime('%Y%m%d_%H:%M:%S') 
+        for 元 in response['data']['realtime']:
+            典 = {'话题':'', 
+                    '在榜日期': 在榜日期,
+                    '在榜时间': 在榜时间,
+                    'topic_flag':'yes' if 1== 元['topic_flag'] else 'no', 
+                    'word_scheme':元.get('word_scheme',''), 
+                    'word':元['word'],
+                    'icon_desc':元.get('icon_desc',''), 
+                    'flag_desc':元.get('flag_desc',''),
+                    'is_ad':'no',
+                }
+            if 'is_ad' in 元 and 1 == 元['is_ad']:
+                典['is_ad'] = 'yes'
+            if 元['word'].startswith('#') and 元['word'].endswith('#'):
+                典['话题'] = 元['word']
+            else:
+                典['话题'] = '#' + 元['word'] + '#'
+            topics.append(典)
+    except:
+        if debug:
+            traceback.print_exc()
+    return topics 
+
+
+#-----------------------------------------------------------------
+def write_topic_list(save_dir:str, filename_prefix:str='wb_hottopic', debug:bool=False)-> int:
+    '''读取一次热搜接口，并写入文件。
+    '''
+    topics = get_topics()
+    df = pd.DataFrame(topics)
+    logger.info(f'抓取一次热搜榜，得到{len(topics)}个话题 ')
+    if debug:
+        logger.debug(topics)
+    if not topics:
+        return 
+    if not pathlib.Path(save_dir).exists():
+        pathlib.Path(save_dir).mkdir(parents=True, exist_ok=True)
+    # 合并csv文件
+    今天日期 = (datetime.date.today() + datetime.timedelta()).strftime('%Y%m%d') 
+    tsv文件名 = f'{save_dir}/{filename_prefix}_{今天日期}.tsv'
+    if pathlib.Path(tsv文件名).exists():
+        old_df = pd.read_csv(tsv文件名, sep='\t', header=0, dtype={'在榜日期':str,}).fillna('')
+        logger.info(f'读文件`{tsv文件名}`, 共有{old_df.shape[0]}个话题')
+        new_df = pd.concat([old_df, df], ignore_index=True).drop_duplicates(subset=['话题','icon_desc']).reset_index(drop=True)
+    else:
+        new_df = df.copy()
+    logger.info(f'写文件`{tsv文件名}`, 共有{new_df.shape[0]}个话题')
+    new_df.to_csv(tsv文件名, header=True, index=False, sep='\t')
+    return 0
+
+
+if __name__ == '__main__':
+    save_dir = str(ROOTDIR / 'data' )
+    errcode = write_topic_list(save_dir)
+
+
+#!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  get_hottopic_once.ipynb
+
