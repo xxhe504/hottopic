@@ -9,11 +9,8 @@ permissions:
 env:
   TZ: Asia/Shanghai
 
-# 触发条件：1. 每10分钟运行一次 2. 支持手动触发（方便测试）
-on:
-  #schedule:
-  #  - cron: '1,11,21,31,41,51 * * * *'  # 每10分钟运行一次
-  workflow_dispatch:  # 支持手动触发 
+# 触发条件：支持手动触发（方便测试）。定时任务：每10分钟运行一次,github action不准时，延后几个小时，改由阿里云的函数计算触发(https://fcnext.console.aliyun.com/cn-hangzhou/functions)。 
+on: workflow_dispatch 
 
 # 要执行的任务集合
 jobs: 
