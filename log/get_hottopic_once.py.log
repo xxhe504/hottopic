@@ -8800,3 +8800,6 @@
 2026-02-20 03:03:52.829 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到50个话题 
 2026-02-20 03:03:52.832 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260220.tsv`, 共有122个话题
 2026-02-20 03:03:52.834 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260220.tsv`, 共有126个话题
+2026-02-20 03:13:52.603 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到50个话题 
+2026-02-20 03:13:52.607 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260220.tsv`, 共有126个话题
+2026-02-20 03:13:52.608 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260220.tsv`, 共有128个话题
