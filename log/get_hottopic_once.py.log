@@ -10508,3 +10508,6 @@
 2026-02-24 02:24:03.530 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到50个话题 
 2026-02-24 02:24:03.533 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260224.tsv`, 共有91个话题
 2026-02-24 02:24:03.535 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260224.tsv`, 共有91个话题
+2026-02-24 02:34:00.805 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到51个话题 
+2026-02-24 02:34:00.808 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260224.tsv`, 共有91个话题
+2026-02-24 02:34:00.810 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260224.tsv`, 共有93个话题
