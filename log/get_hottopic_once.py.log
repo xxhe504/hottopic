@@ -17122,3 +17122,6 @@
 2026-03-16 14:34:05.199 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到50个话题 
 2026-03-16 14:34:05.204 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260316.tsv`, 共有413个话题
 2026-03-16 14:34:05.205 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260316.tsv`, 共有417个话题
+2026-03-16 14:43:56.435 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到50个话题 
+2026-03-16 14:43:56.440 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260316.tsv`, 共有417个话题
+2026-03-16 14:43:56.442 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260316.tsv`, 共有423个话题
