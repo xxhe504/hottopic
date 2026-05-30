@@ -7780,3 +7780,6 @@
 2026-05-30 18:11:10.856 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到51个话题 
 2026-05-30 18:11:10.862 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260530.tsv`, 共有505个话题
 2026-05-30 18:11:10.864 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260530.tsv`, 共有510个话题
+2026-05-30 18:21:09.121 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到51个话题 
+2026-05-30 18:21:09.127 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260530.tsv`, 共有510个话题
+2026-05-30 18:21:09.129 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260530.tsv`, 共有515个话题
