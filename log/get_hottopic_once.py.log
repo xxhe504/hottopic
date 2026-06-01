@@ -10363,3 +10363,6 @@
 2026-06-02 02:56:43.634 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到50个话题 
 2026-06-02 02:56:43.638 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260602.tsv`, 共有107个话题
 2026-06-02 02:56:43.640 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260602.tsv`, 共有107个话题
+2026-06-02 02:58:15.354 | INFO     | __main__:write_topic_list:79 - 抓取一次热搜榜，得到51个话题 
+2026-06-02 02:58:15.358 | INFO     | __main__:write_topic_list:92 - 读文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260602.tsv`, 共有107个话题
+2026-06-02 02:58:15.360 | INFO     | __main__:write_topic_list:96 - 写文件`/home/runner/work/hottopic/hottopic/data/wb_hottopic_20260602.tsv`, 共有107个话题
