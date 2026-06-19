@@ -3,3 +3,4 @@ requests
 loguru
 flask
 gunicorn
+boto3
