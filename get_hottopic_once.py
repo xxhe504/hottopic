@@ -18,7 +18,7 @@ import pathlib
 if '__file__' in locals():
     # .py代码
     ROOTDIR = pathlib.Path(__file__).absolute().parent 
-    logger.remove()
+    #logger.remove()
     logger.add(f"{ROOTDIR}/log/get_hottopic_once.py.log", rotation="00:00", retention="30 days")  # 一段时间后进行清理 
 else:
     # 适合jupyter中
