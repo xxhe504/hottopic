@@ -3,13 +3,15 @@
 
 # # get_hottopic_once
 # 使用公开接口，抓取一次微博热搜榜  
+# 260620：增加写入R2对象存储  
 
-import json
 import requests
-import pandas as pd
 import traceback
-from copy import deepcopy
 from loguru import logger
+import pandas as pd
+from io import StringIO
+import pandas as pd
+import r2_util as r2
 
 
 import pathlib
@@ -71,8 +73,8 @@ def get_topics(debug:bool=False) -> list:
 
 
 #-----------------------------------------------------------------
-def write_topic_list(save_dir:str, filename_prefix:str='wb_hottopic', debug:bool=False)-> int:
-    '''读取一次热搜接口，并写入文件。
+def write_topic_local(save_dir:str, filename_prefix:str='wb_hottopic', debug:bool=False)-> int:
+    '''读取一次热搜接口，并写入本地文件。
     '''
     topics = get_topics()
     df = pd.DataFrame(topics)
@@ -98,9 +100,50 @@ def write_topic_list(save_dir:str, filename_prefix:str='wb_hottopic', debug:bool
     return 0
 
 
+#-----------------------------------------------------------------
+def write_topic_r2(filename_prefix:str='wb_hottopic', debug:bool=False)-> str:
+    '''读取一次热搜接口，并写入R2。
+    '''
+    topics = get_topics()
+    df = pd.DataFrame(topics)
+    logger.info(f'抓取一次热搜榜，得到{len(topics)}个话题 ')
+    if debug:
+        logger.debug(topics)
+    if not topics:
+        return ''
+    # 合并csv文件
+    今天日期 = (datetime.date.today() + datetime.timedelta()).strftime('%Y%m%d') 
+    tsv文件名 = f'{filename_prefix}_{今天日期}.tsv'
+    if r2.file_exists_in_r2_weibo(tsv文件名):
+        tsv_text = r2.read_r2_tsv(tsv文件名)
+        # 转 pandas DataFrame 查看
+        old_df = pd.read_csv(StringIO(tsv_text), sep="\t", header=0, dtype={'在榜日期':str,}).fillna('')
+        logger.info(f'下载文件`{tsv文件名}`, 共有{old_df.shape[0]}个话题')
+        new_df = pd.concat([old_df, df], ignore_index=True).drop_duplicates(subset=['话题','icon_desc']).reset_index(drop=True)
+    else:
+        new_df = df.copy()
+
+    # df转TSV字符串
+    buf = StringIO()
+    # sep制表符、不输出索引、utf8编码
+    new_df.to_csv(buf, sep="\t", index=False, header=True, encoding="utf-8")
+    tsv_text = buf.getvalue()
+    logger.info(f'上传文件`{tsv文件名}`, 共有{new_df.shape[0]}个话题')
+    r2_path = r2.upload_to_r2_weibo(tsv_str=tsv_text, filename=tsv文件名)
+    return r2_path
+
+
 if __name__ == '__main__':
-    save_dir = str(ROOTDIR / 'data' )
-    errcode = write_topic_list(save_dir)
+    # 同时满足两个条件才走R2：CI标记 + R2账号ID存在
+    IS_CI = r2.RUN_ON_CI.lower() == "true"
+    HAS_R2_CREDS = bool(r2.ACCOUNT_ID)
+    if IS_CI and HAS_R2_CREDS:
+        # 上传R2
+        write_topic_r2()
+    else:
+        # 本地保存
+        save_dir = str(ROOTDIR / 'data' / 'weibo' )
+        errcode = write_topic_local(save_dir)
 
 
 #!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  get_hottopic_once.ipynb
