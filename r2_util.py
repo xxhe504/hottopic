@@ -21,6 +21,7 @@ __all__ = ['get_r2_client',
            'SECRET_ACCESS_KEY',
            'BUCKET_NAME',
            'RUN_ON_CI',
+           'CI',
            ]
 
 
@@ -30,6 +31,7 @@ ACCESS_KEY_ID = os.getenv("ACCESS_KEY_ID", "")
 SECRET_ACCESS_KEY = os.getenv("SECRET_ACCESS_KEY", "")
 BUCKET_NAME = os.getenv("BUCKET_NAME", "")
 RUN_ON_CI = os.getenv("RUN_ON_CI", "")
+CI = os.getenv("CI", "")
 
 
 def get_r2_client():
