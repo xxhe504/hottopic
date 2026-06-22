@@ -11,7 +11,7 @@ on: workflow_dispatch
 
 # 要执行的任务集合
 jobs: 
-  wb_hottopic: 
+  wb_hottopic_r2: 
     runs-on: ubuntu-latest
     steps:
       # 步骤1：拉取仓库代码（带完整历史，方便提交）
