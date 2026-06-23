@@ -14,6 +14,8 @@ from botocore.errorfactory import ClientError
 __all__ = ['get_r2_client',
            'read_r2_tsv', 
            'file_exists_in_r2_weibo', 
+           'file_exists_in_r2_zhihu',
+           'upload_to_r2_zhihu',
            'upload_to_r2_weibo',
            'ACCOUNT_ID',
            'ACCESS_KEY_ID',
@@ -30,8 +32,8 @@ ACCESS_KEY_ID = os.getenv("ACCESS_KEY_ID", "")
 SECRET_ACCESS_KEY = os.getenv("SECRET_ACCESS_KEY", "")
 BUCKET_NAME = os.getenv("BUCKET_NAME", "")
 RUN_ON_CI = os.getenv("RUN_ON_CI", "")
+# github actions自带的环境变量
 CI = os.getenv("CI", "")
-print(f'CI= {CI}')
 
 
 def get_r2_client():
@@ -78,11 +80,47 @@ def file_exists_in_r2_weibo(file_name: str) -> bool:
         raise
 
 
+def file_exists_in_r2_zhihu(file_name: str) -> bool:
+    """
+    检查 zhihu/ 目录下是否存在指定文件
+    :param file_name: 文件名，如 "20260619_2221.json"
+    :return: 存在返回True，不存在返回False
+    """
+    s3 = get_r2_client()
+    key = f"zhihu/{file_name}"
+    try:
+        s3.head_object(Bucket=BUCKET_NAME, Key=key)
+        return True
+    except ClientError as err:
+        err_code = err.response["Error"]["Code"]
+        # R2 文件不存在返回 404，标准S3是 NoSuchKey，两个都兼容
+        if err_code in ("NoSuchKey", "404"):
+            return False
+        raise
+
+
 def upload_to_r2_weibo(tsv_str:str, filename:str, debug:bool=False) -> str:
     '''上传TSV字符串到R2对象存储的data/目录下
     ''' 
     s3 = get_r2_client()
     file_key = f"weibo/{filename}"
+    body_bytes = tsv_str.encode("utf-8")
+
+    s3.put_object(
+        Bucket=BUCKET_NAME,
+        Key=file_key,
+        Body=body_bytes,
+        #ContentType="text/tab-separated-values", # 控制台不可预览  
+        ContentType="text/plain"  # 改成plain，控制台可预览 
+    )
+    return file_key
+
+
+def upload_to_r2_zhihu(tsv_str:str, filename:str, debug:bool=False) -> str:
+    '''上传TSV字符串到R2对象存储的zhihu/目录下
+    ''' 
+    s3 = get_r2_client()
+    file_key = f"zhihu/{filename}"
     body_bytes = tsv_str.encode("utf-8")
 
     s3.put_object(
