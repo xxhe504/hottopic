@@ -5,7 +5,6 @@
 # 260619: 创建 
 
 import os
-import json
 from datetime import datetime
 import boto3
 from botocore.config import Config
@@ -32,6 +31,7 @@ SECRET_ACCESS_KEY = os.getenv("SECRET_ACCESS_KEY", "")
 BUCKET_NAME = os.getenv("BUCKET_NAME", "")
 RUN_ON_CI = os.getenv("RUN_ON_CI", "")
 CI = os.getenv("CI", "")
+print(f'CI= {CI}')
 
 
 def get_r2_client():
