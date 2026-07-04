@@ -35,11 +35,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 步骤4：运行Python脚本（生成日志文件）
+      # 步骤4：运行Python脚本-微博
       - name: 执行脚本
         run: python get_hottopic_once.py
+      
+      # 步骤5：运行Python脚本-知乎
+      - name: 执行脚本
+        run: python zhihu_hotsearch.py
 
-      # 步骤5：提交日志文件到GitHub仓库
+      # 步骤6：提交日志文件到GitHub仓库
       - name: 提交日志文件
         run: |
           # 配置Git用户信息（Actions运行环境需要）
