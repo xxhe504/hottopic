@@ -3,3 +3,10 @@ __pycache__/
 *.pyc
 *.py[cod]
 *$py.class
+
+# Notebook、配置、密钥、脚本
+*.ipynb
+config/
+doc/
+R2_KEY
+env.sh
