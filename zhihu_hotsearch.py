@@ -73,7 +73,7 @@ def write_topic_local(save_dir:str, filename_prefix:str='zhihu_hotsearch', debug
     if tsv文件名.exists():
         old_df = pd.read_csv(str(tsv文件名), sep='\t', header=0, dtype={'在榜日期':str,}).fillna('')
         logger.info(f'读文件`{tsv文件名}`, 共有{old_df.shape[0]}个话题')
-        new_df = pd.concat([old_df, df], ignore_index=True).drop_duplicates(subset=['话题']).reset_index(drop=True)
+        new_df = pd.concat([old_df, df], ignore_index=True).drop_duplicates(subset=['话题','label']).reset_index(drop=True)
     else:
         new_df = df.copy()
     logger.info(f'写文件`{tsv文件名}`, 共有{new_df.shape[0]}个话题')
