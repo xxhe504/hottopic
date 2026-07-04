@@ -36,11 +36,11 @@ jobs:
           pip install -r requirements.txt
 
       # 步骤4：运行Python脚本-微博
-      - name: 执行脚本
+      - name: 执行脚本-微博
         run: python get_hottopic_once.py
       
       # 步骤5：运行Python脚本-知乎
-      - name: 执行脚本
+      - name: 执行脚本-知乎
         run: python zhihu_hotsearch.py
 
       # 步骤6：提交日志文件到GitHub仓库
