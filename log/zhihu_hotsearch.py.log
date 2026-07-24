@@ -8525,3 +8525,6 @@
 2026-07-24 14:01:57.483 | INFO     | __main__:write_topic_local:62 - 抓取一次热搜榜，得到30个话题 
 2026-07-24 14:01:57.486 | INFO     | __main__:write_topic_local:75 - 读文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260724.tsv`, 共有64个话题
 2026-07-24 14:01:57.488 | INFO     | __main__:write_topic_local:79 - 写文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260724.tsv`, 共有64个话题
+2026-07-24 14:11:34.108 | INFO     | __main__:write_topic_local:62 - 抓取一次热搜榜，得到30个话题 
+2026-07-24 14:11:34.110 | INFO     | __main__:write_topic_local:75 - 读文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260724.tsv`, 共有64个话题
+2026-07-24 14:11:34.112 | INFO     | __main__:write_topic_local:79 - 写文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260724.tsv`, 共有64个话题
