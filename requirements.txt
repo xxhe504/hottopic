@@ -4,3 +4,5 @@ loguru
 flask
 gunicorn
 boto3
+# 制作网页
+streamlit
