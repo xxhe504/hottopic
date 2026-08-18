@@ -16123,3 +16123,6 @@
 2026-08-19 05:52:12.817 | INFO     | __main__:write_topic_local:62 - 抓取一次热搜榜，得到30个话题 
 2026-08-19 05:52:12.820 | INFO     | __main__:write_topic_local:75 - 读文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260819.tsv`, 共有37个话题
 2026-08-19 05:52:12.822 | INFO     | __main__:write_topic_local:79 - 写文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260819.tsv`, 共有37个话题
+2026-08-19 06:02:12.071 | INFO     | __main__:write_topic_local:62 - 抓取一次热搜榜，得到30个话题 
+2026-08-19 06:02:12.073 | INFO     | __main__:write_topic_local:75 - 读文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260819.tsv`, 共有37个话题
+2026-08-19 06:02:12.075 | INFO     | __main__:write_topic_local:79 - 写文件`/home/runner/work/hottopic/hottopic/data/zhihu/zhihu_hotsearch_20260819.tsv`, 共有37个话题
