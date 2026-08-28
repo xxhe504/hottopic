@@ -30907,3 +30907,6 @@
 2026-08-28 11:32:27.939 | INFO     | __main__:write_topic_local:81 - 抓取一次热搜榜，得到52个话题 
 2026-08-28 11:32:27.942 | INFO     | __main__:write_topic_local:94 - 读文件`/home/runner/work/hottopic/hottopic/data/weibo/wb_hottopic_20260828.tsv`, 共有256个话题
 2026-08-28 11:32:27.944 | INFO     | __main__:write_topic_local:98 - 写文件`/home/runner/work/hottopic/hottopic/data/weibo/wb_hottopic_20260828.tsv`, 共有261个话题
+2026-08-28 11:42:17.696 | INFO     | __main__:write_topic_local:81 - 抓取一次热搜榜，得到51个话题 
+2026-08-28 11:42:17.700 | INFO     | __main__:write_topic_local:94 - 读文件`/home/runner/work/hottopic/hottopic/data/weibo/wb_hottopic_20260828.tsv`, 共有261个话题
+2026-08-28 11:42:17.702 | INFO     | __main__:write_topic_local:98 - 写文件`/home/runner/work/hottopic/hottopic/data/weibo/wb_hottopic_20260828.tsv`, 共有266个话题
