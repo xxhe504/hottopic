@@ -34778,3 +34778,4 @@
 2026-10-07 23:22:46.837 | INFO     | __main__:write_topic_local:94 - 读文件`/home/runner/work/hottopic/hottopic/data/weibo/wb_hottopic_20261007.tsv`, 共有697个话题
 2026-10-07 23:22:46.840 | INFO     | __main__:write_topic_local:98 - 写文件`/home/runner/work/hottopic/hottopic/data/weibo/wb_hottopic_20261007.tsv`, 共有712个话题
 2026-10-07 23:38:15.045 | INFO     | __main__:<module>:144 - 环境变量HAS_R2_CREDS=False, 没有保存
+2026-10-07 23:52:49.998 | INFO     | __main__:<module>:144 - 环境变量HAS_R2_CREDS=False, 没有保存
