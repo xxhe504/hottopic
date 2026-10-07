@@ -41,3 +41,7 @@ jobs:
           SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
           BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: python get_hottopic_once.py
+        
+      # 步骤5：运行Python脚本-知乎
+      - name: 执行脚本-知乎
+        run: python zhihu_hotsearch.py
