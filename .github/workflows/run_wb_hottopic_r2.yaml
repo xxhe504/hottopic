@@ -35,8 +35,6 @@ jobs:
       # 步骤4：运行Python脚本（生成日志文件）
       - name: 执行脚本
         env:
-          # GitHub内置CI环境变量，代码中 os.getenv("CI") 自动为true
-          RUN_ON_CI: true
           # 下面4个R2密钥，需要你在仓库Secrets提前配置
           ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
           ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
