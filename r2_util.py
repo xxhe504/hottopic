@@ -100,7 +100,7 @@ def file_exists_in_r2_zhihu(file_name: str) -> bool:
 
 
 def upload_to_r2_weibo(tsv_str:str, filename:str, debug:bool=False) -> str:
-    '''上传TSV字符串到R2对象存储的data/目录下
+    '''上传TSV字符串到R2对象存储weibo/目录下
     ''' 
     s3 = get_r2_client()
     file_key = f"weibo/{filename}"
@@ -111,7 +111,7 @@ def upload_to_r2_weibo(tsv_str:str, filename:str, debug:bool=False) -> str:
         Key=file_key,
         Body=body_bytes,
         #ContentType="text/tab-separated-values", # 控制台不可预览  
-        ContentType="text/plain"  # 改成plain，控制台可预览 
+        ContentType="text/plain; charset=utf-8"  # 改成plain，控制台可预览 
     )
     return file_key
 
@@ -128,7 +128,7 @@ def upload_to_r2_zhihu(tsv_str:str, filename:str, debug:bool=False) -> str:
         Key=file_key,
         Body=body_bytes,
         #ContentType="text/tab-separated-values", # 控制台不可预览  
-        ContentType="text/plain"  # 改成plain，控制台可预览 
+        ContentType="text/plain; charset=utf-8"  # 改成plain，控制台可预览 
     )
     return file_key
 
@@ -158,7 +158,4 @@ if '__main__' == __name__:
 
 
 #!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  r2_util.ipynb
-
-
-
 

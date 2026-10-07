@@ -4,13 +4,13 @@
 # # get_hottopic_once
 # 使用公开接口，抓取一次微博热搜榜  
 # 260620：增加写入R2对象存储  
+# 261007：无论本地运行，还是GITHUB上运行，都使用R2存储  
 
 import requests
 import traceback
 from loguru import logger
 import pandas as pd
 from io import StringIO
-import pandas as pd
 import r2_util as r2
 
 
@@ -55,6 +55,7 @@ def get_topics(debug:bool=False) -> list:
                     'topic_flag':'yes' if 1== 元['topic_flag'] else 'no', 
                     'word_scheme':元.get('word_scheme',''), 
                     'word':元['word'],
+                    'heat':元.get('num', 0),
                     'icon_desc':元.get('icon_desc',''), 
                     'flag_desc':元.get('flag_desc',''),
                     'is_ad':'no',
@@ -128,22 +129,22 @@ def write_topic_r2(filename_prefix:str='wb_hottopic', debug:bool=False)-> str:
     # sep制表符、不输出索引、utf8编码
     new_df.to_csv(buf, sep="\t", index=False, header=True, encoding="utf-8")
     tsv_text = buf.getvalue()
-    logger.info(f'上传文件`{tsv文件名}`, 共有{new_df.shape[0]}个话题')
+    logger.info(f'上传文件到R2`{tsv文件名}`, 共有{new_df.shape[0]}个话题')
     r2_path = r2.upload_to_r2_weibo(tsv_str=tsv_text, filename=tsv文件名)
     return r2_path
 
 
 if __name__ == '__main__':
-    # 同时满足两个条件才走R2：CI标记 + R2账号ID存在
-    IS_CI = r2.RUN_ON_CI.lower() == "true"
+    # 检测R2账号ID是否存在
     HAS_R2_CREDS = bool(r2.ACCOUNT_ID)
-    if IS_CI and HAS_R2_CREDS:
+    if HAS_R2_CREDS:
         # 上传R2
         write_topic_r2()
     else:
+        logger.info(f'环境变量HAS_R2_CREDS={HAS_R2_CREDS}, 没有保存')
         # 本地保存
-        save_dir = str(ROOTDIR / 'data' / 'weibo' )
-        errcode = write_topic_local(save_dir)
+        #save_dir = str(ROOTDIR / 'hottopc-data' / 'weibo' )
+        #errcode = write_topic_local(save_dir)
 
 
 #!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  get_hottopic_once.ipynb
