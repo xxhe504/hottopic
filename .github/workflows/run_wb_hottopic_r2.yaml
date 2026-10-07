@@ -33,7 +33,7 @@ jobs:
           pip install -r requirements.txt
 
       # 步骤4：运行Python脚本（生成日志文件）
-      - name: 执行脚本
+      - name: 执行脚本-微博
         env:
           # 下面4个R2密钥，需要你在仓库Secrets提前配置
           ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
@@ -44,4 +44,10 @@ jobs:
         
       # 步骤5：运行Python脚本-知乎
       - name: 执行脚本-知乎
+        env:
+          # 下面4个R2密钥，需要你在仓库Secrets提前配置
+          ACCOUNT_ID: ${{ secrets.ACCOUNT_ID }}
+          ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+          SECRET_ACCESS_KEY: ${{ secrets.SECRET_ACCESS_KEY }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: python zhihu_hotsearch.py
