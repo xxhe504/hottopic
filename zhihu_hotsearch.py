@@ -97,8 +97,9 @@ def write_topic_r2(filename_prefix:str='zhihu_hotsearch', debug:bool=False)-> st
     # 合并csv文件
     今天日期 = (datetime.date.today() + datetime.timedelta()).strftime('%Y%m%d') 
     tsv文件名 = f'{filename_prefix}_{今天日期}.tsv'
+    logger.info(f'文件名: {tsv文件名}')
     if r2.file_exists_in_r2_zhihu(tsv文件名):
-        tsv_text = r2.read_r2_tsv(tsv文件名)
+        tsv_text = r2.read_r2_tsv_zhihu(tsv文件名)
         # 转 pandas DataFrame 查看
         old_df = pd.read_csv(StringIO(tsv_text), sep="\t", header=0, dtype={'在榜日期':str,}).fillna('')
         logger.info(f'下载文件`{tsv文件名}`, 共有{old_df.shape[0]}个话题')
