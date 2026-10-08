@@ -12,7 +12,8 @@ from botocore.errorfactory import ClientError
 
 
 __all__ = ['get_r2_client',
-           'read_r2_tsv', 
+           'read_r2_tsv_weibo', 
+           'read_r2_tsv_zhihu',
            'file_exists_in_r2_weibo', 
            'file_exists_in_r2_zhihu',
            'upload_to_r2_zhihu',
@@ -50,12 +51,23 @@ def get_r2_client():
     return s3client
 
 
-def read_r2_tsv(file_name):
+def read_r2_tsv_weibo(file_name):
     '''读取weibo目录下的tsv文件，返回原始文本字符串
     '''
     s3 = get_r2_client()
     # 前缀改为 weibo/，直接返回tsv文本
     key = f"weibo/{file_name}"
+    resp = s3.get_object(Bucket=BUCKET_NAME, Key=key)
+    content = resp["Body"].read().decode("utf-8")
+    return content
+
+
+def read_r2_tsv_zhihu(file_name):
+    '''读取zhihu目录下的tsv文件，返回原始文本字符串
+    '''
+    s3 = get_r2_client()
+    # 前缀改为 zhihu/，直接返回tsv文本
+    key = f"zhihu/{file_name}"
     resp = s3.get_object(Bucket=BUCKET_NAME, Key=key)
     content = resp["Body"].read().decode("utf-8")
     return content
@@ -158,4 +170,7 @@ if '__main__' == __name__:
 
 
 #!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  r2_util.ipynb
+
+
+
 

@@ -116,7 +116,7 @@ def write_topic_r2(filename_prefix:str='wb_hottopic', debug:bool=False)-> str:
     今天日期 = (datetime.date.today() + datetime.timedelta()).strftime('%Y%m%d') 
     tsv文件名 = f'{filename_prefix}_{今天日期}.tsv'
     if r2.file_exists_in_r2_weibo(tsv文件名):
-        tsv_text = r2.read_r2_tsv(tsv文件名)
+        tsv_text = r2.read_r2_tsv_weibo(tsv文件名)
         # 转 pandas DataFrame 查看
         old_df = pd.read_csv(StringIO(tsv_text), sep="\t", header=0, dtype={'在榜日期':str,}).fillna('')
         logger.info(f'下载文件`{tsv文件名}`, 共有{old_df.shape[0]}个话题')
@@ -142,9 +142,6 @@ if __name__ == '__main__':
         write_topic_r2()
     else:
         logger.info(f'环境变量HAS_R2_CREDS={HAS_R2_CREDS}, 没有保存')
-        # 本地保存
-        #save_dir = str(ROOTDIR / 'hottopc-data' / 'weibo' )
-        #errcode = write_topic_local(save_dir)
 
 
 #!jupyter nbconvert --to python --no-prompt --TemplateExporter.exclude_input_prompt=True --TemplateExporter.exclude_output_prompt=True  get_hottopic_once.ipynb
